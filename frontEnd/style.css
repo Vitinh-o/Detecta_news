@@ -1,0 +1,85 @@
+/* CSS da página principal */
+
+.tamanho_form{height: 300px;}
+
+#conteudo_link{display: none;}
+
+.texto_noticias{display: none;}
+
+#conteudo_imagem{display: none;}
+
+#preview_imagem{
+    padding-top: 40px;
+    margin: auto;
+    max-width: 100%; 
+    max-height: 700px; 
+    height: auto;}
+
+.rodape{margin-bottom: 5pc;
+        padding-top: 1pc;}
+
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); 
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; 
+    display:none;
+}
+
+.spinner-border {
+    width: 5rem; 
+    height: 5rem; 
+    border-width: 0.5rem; 
+    color: black;
+
+}
+
+
+/* CSS da página listaDesitesConfiáveis */
+
+.section_da_lista{width: 60%; text-align: justify; margin-top: 80px;}
+
+
+@media only screen and (max-width: 800px) {
+  
+    .section_da_lista{width: 90%; text-align: justify; margin-top: 80px}
+
+}
+
+
+@media only screen and (max-width: 550px) {
+  
+    .section_da_lista{width: 100%;}
+
+    img{height: 40px;}
+
+}
+
+
+
+/* CSS da página Sobre nos */
+
+.sobreNos{width: 800px;  
+            height: 800px; 
+            text-align: justify;  
+            margin:auto; 
+            padding-top: 10%;}
+
+
+@media only screen and (max-width: 800px) {
+  
+    .sobreNos{
+    width: 80%;
+    height: auto;
+    margin-top: 50px;}
+
+    .titulos_sobre_nos{text-align: center;}
+    
+
+}
