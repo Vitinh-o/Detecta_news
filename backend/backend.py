@@ -21,7 +21,6 @@ app.add_middleware(
 #Rota para ativação da IA, verifica o que foi recebido e instancia a classe notice conforme o recebido
 @app.get("/notice")
 async def read_notice(recived_link:str = None, text_notice:str = None, recived_image:str = None):
-    print(text_notice)
 
     if recived_link:
 

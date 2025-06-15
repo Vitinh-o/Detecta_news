@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 from spacy.training import Example
 from sklearn.model_selection import train_test_split
 import spacy

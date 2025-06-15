@@ -13,6 +13,7 @@ from math import log2
 from langdetect import detect
 from dotenv import load_dotenv
 import os
+import re
 
 
 
@@ -42,42 +43,47 @@ class Notice(BaseModel):
             self.preprocess_text(self.notice)
 
 
-    def preprocess_text(self,notice):
-        
+    def preprocess_text(self, notice):
+        # Etapa 1: limpeza bruta do texto
         text = notice
+        text = re.sub(r'\s+', ' ', text)  # remover múltiplos espaços/linhas
+        text = text.lower()
+        text = re.sub(r'[^\w\s]', '', text)  # remover pontuação e símbolos
 
+        # Carregar modelo spaCy
         nlp = spacy.load("pt_core_news_lg")
-
-        # Processar o texto com spaCy
         doc = nlp(text)
 
-        # Inicializar uma lista para armazenar as palavras pré-processadas
-        processed_words = []
-
-        # Função para remover acentuações de uma string
         def remove_accent(text):
-            # Normalizar o texto para decomposição canônica
             text = normalize("NFD", text)
-            # Remover caracteres de combinação
-            text = ''.join(char for char in text if not combining(char))
-            return text
+            return ''.join(char for char in text if not combining(char))
 
-        # Percorrer os tokens no documento spaCy
+        def palavra_valida(palavra):
+            # Regras básicas para remover ruído OCR
+            if len(palavra) < 3:  # muito curtas
+                return False
+            if not re.search(r'[aeiouáéíóúãõ]', palavra):  # sem vogal
+                return False
+            if re.search(r'\d+[a-zA-Z]+|[a-zA-Z]+\d+', palavra):  # mistura de letras e números
+                return False
+            return True
+
+        processed_words = []
         for token in doc:
-            # Verificar se o token não é uma pontuação e não é uma stopword
-            if not token.is_punct and not token.is_stop:
-                # Obter a forma lematizada do token
+            # remover stopwords e pontuação
+            if not token.is_stop and not token.is_punct:
                 lemma = token.lemma_
-                # Remover acentos do lemma
                 lemma_no_accent = remove_accent(lemma)
-                # Adicionar à lista de palavras pré-processadas
-                processed_words.append(lemma_no_accent)
-                
-        # Juntar as palavras pré-processadas em uma string e retornar
+                if palavra_valida(lemma_no_accent):
+                    processed_words.append(lemma_no_accent)
+
+        # Resultado final
         return self.IA_classification(' '.join(processed_words))
     
     
     def IA_classification(self, processed_notice):
+
+        print(processed_notice)
 
         nlp = spacy.load("output/model-best")
         
@@ -230,6 +236,8 @@ class ImageNotice(BaseModel):
             text = pytesseract.image_to_string(converted_image, lang='por')  # Idioma: Português
 
             self.notice_in_text = text
+
+
 
         #Caso o formato não seja aceito
         except: 
