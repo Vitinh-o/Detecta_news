@@ -57,7 +57,7 @@ async def read_notice(recived_link:str = None, text_notice:str = None, recived_i
         
         elif notice_collected == 0:
             
-            return "Este site está listado em nossos sistemas como um site de notícias confiáveis!"
+            return "Este site está listado em nossos sistemas como um site de notícias oficiais!"
         
 
         return notice.check_notice_verification()

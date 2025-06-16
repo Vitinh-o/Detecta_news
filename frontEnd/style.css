@@ -1,3 +1,10 @@
+/* CSS todas as páginas */
+p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
 /* CSS da página principal */
 
 .tamanho_form{height: 300px;}

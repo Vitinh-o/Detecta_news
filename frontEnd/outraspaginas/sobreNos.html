@@ -55,31 +55,38 @@
 
         </header>
 
-        <section class="sobreNos"> 
+<section class="sobreNos"> 
 
-            <h2 class="titulos_sobre_nos">O porque deste projeto</h2>
+    <h2 class="titulos_sobre_nos">O porquê deste projeto</h2>
 
-            <p>
-                Este é um projeto criado com o propósito de aplicar na prática conceitos aprendidos em cursos como processamento de
-                linguagem natural com spacy, utilização de APIS como fastAPI, programação em python para o backend,, aplicação de um banco
-                de dados relacional, e a criação de uma página web em HTML, CSS e JavaScript .
-                Além disso o projeto visa ser útil socialmente pois na conjectura atual muitas notícias falsas são espalhadas nas redes sociais
-                com diferentes objetivos sejam eles difamatórios ou desmoralizador. Com este projeto tentamos combater ao menos um pouco 
-                o mar de desinformação que temos nas redes nos dias de hoje, de maneira prática e fácil de usar.
-            </p>
+    <p>
+        Este projeto foi desenvolvido com o objetivo de criar uma ferramenta prática e acessível para identificação de fake news,
+        unindo tecnologia e responsabilidade social. Com o avanço da desinformação nas redes sociais, cresce a necessidade de 
+        soluções tecnológicas que ajudem o público a verificar rapidamente a veracidade de conteúdos compartilhados.
+        A aplicação combina tecnologias modernas como HTML, Bootstrap 5, CSS e JavaScript no frontend com um backend em Python
+        utilizando o framework FastAPI. A Inteligência Artificial integrada ao sistema, baseada no modelo spaCy TextCatBow v3,
+        é capaz de analisar textos e indicar a probabilidade de serem falsos ou verdadeiros, tornando a ferramenta uma aliada no 
+        combate à desinformação.
+    </p>
 
-            <h2 class="titulos_sobre_nos">Metodologia</h2>
+    <h2 class="titulos_sobre_nos">Metodologia</h2>
 
-            <p>O nosso projeto utiliza de 2 metodologias, a primeira é a verificação da notícia em sites confiáveis. Através do 
-                título da notícia, procuramos em diferentes sites se a mesma já foi verificada e confirmada como verdadeira ou falsa.
-                Caso isto ainda não tenha acontecido enviamos a notícia a nossa IA que irá verificar a probabilidade da notícia ser falsa 
-                com base em suas características de escrita e análise das informações e irar retornar ao usuário uma porcentagem da notícia
-                ser falsa ou não.
-                Por último caso a notícia possua uma alta porcentagem de ser falsa enviamos-a nosso banco de dados para que caso uma próxima
-                pessoa nos envie a mesma notícia realizamos já teremos uma resposta mais rápida para a mesma. 
-            </p>
+    <p>
+        A metodologia adotada no projeto se baseia em duas etapas principais de verificação. Primeiramente, ao receber o título da 
+        notícia, a aplicação realiza uma busca automatizada em sites de checagem confiáveis utilizando a API Google Search, 
+        verificando se aquela informação já foi analisada e classificada como verdadeira ou falsa por fontes oficiais.
+    </p>
 
-        </section>
+    <p>
+        Caso não haja resultados suficientes, a notícia é então processada por nossa Inteligência Artificial. O texto passa por um 
+        pré-processamento (tokenização, remoção de pontuação, conversão para minúsculas e possível lematização) e é transformado 
+        em uma representação numérica usando a técnica Bag-of-Words. Com base nessa vetorização, o modelo classifica a notícia de 
+        acordo com padrões aprendidos durante o treinamento com o corpus Fake.br, indicando a probabilidade de ela ser falsa.
+    </p>
+
+
+</section>
+
 
 
         <footer class="card text-center fixed-bottom" style="background-color: #e7eaeb;">
