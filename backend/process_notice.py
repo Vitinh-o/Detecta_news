@@ -51,7 +51,7 @@ class Notice(BaseModel):
         text = re.sub(r'[^\w\s]', '', text)  # remover pontuação e símbolos
 
         # Carregar modelo spaCy
-        nlp = spacy.load("pt_core_news_lg")
+        nlp = spacy.load("pt_core_news_md")
         doc = nlp(text)
 
         def remove_accent(text):
@@ -87,7 +87,7 @@ class Notice(BaseModel):
 
         nlp = spacy.load("output/model-best")
         
-        pln = spacy.load("pt_core_news_lg")
+        pln = spacy.load("pt_core_news_md")
 
         # Transformando texto em linguagem de máquina para IA
         doc = pln(processed_notice)
@@ -178,14 +178,14 @@ class NoticeSitesFact(BaseModel):
             return 1 
     
         return self.notice
-        
 
     #Verifica com a API do google se existem notícias similares as informações que o usuário inseriu
     def check_notice_verification(self):
 
         load_dotenv()
 
-        notice_body = self.notice[:20]
+        notice_body = self.extract_key_words(num_words=5)
+        print(notice_body)
 
         API_KEY = os.getenv("GOOGLE_API_KEY")
         CSE_ID = os.getenv("GOOGLE_CSE_ID")
@@ -211,7 +211,23 @@ class NoticeSitesFact(BaseModel):
             })
 
         return(search_results)
-    
+
+    #Extrai palavras chaves das notícias enviadas    
+    def extract_key_words(self, num_words=5):
+
+        notice_body = self.notice
+
+        # Carrega o modelo de português
+        nlp = spacy.load("pt_core_news_sm")
+        
+        # Processa o texto
+        doc = nlp(notice_body.lower())
+        
+        # Extrai substantivos e nomes próprios, evitando stopwords e pontuação
+        key_words = [token.text for token in doc if not token.is_stop and not token.is_punct and (token.pos_ == "NOUN" or token.pos_ == "PROPN")]
+        
+        # Retorna as 'num_palavras' primeiras palavras-chave encontradas
+        return " ".join(key_words[:num_words])
 
 class ImageNotice(BaseModel):
 
